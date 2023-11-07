@@ -1,0 +1,80 @@
+﻿@model Telcel.R9.Estructura.Negocio.Empleado
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Empleado</h2>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione un Empleado para editarlo o + para agregar un Empleado...</h5>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div style="float:right">
+            @Html.ActionLink("+", "Form", "Empleado", htmlAttributes: new { @class = "btn btn-success" })
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-responsive" id="myTable">
+            <thead>
+                <tr>
+                    <td class="text-center" style=" font-weight:bold;">Editar</td>
+
+                    <td class="hidden">EmpleadoId</td>
+                    <td class="text-center" style=" font-weight:bold;">Nombre</td>
+                    <td class="hidden">DepartamentoId</td>
+                    <td class="text-center" style=" font-weight:bold;">Departamento</td>
+                    <td class="hidden">PuestoId</td>
+                    <td class="text-center" style=" font-weight:bold;">Puesto</td>
+
+
+
+                    <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (Telcel.R9.Estructura.Negocio.Empleado empleado in Model.Empleados)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn btn-warning bi bi-xbox" href="@Url.Action("Form", "Empleado", new { EmpleadoId = empleado.EmpleadoId })"></a></td>
+
+                        <td class="hidden">@empleado.EmpleadoId</td>
+                        <td>@empleado.Nombre</td>
+                        <td class="hidden">@empleado.Departamento.DepartamentoID</td>
+                        <td>@empleado.Departamento.Descripcion</td>
+                        <td class="hidden">@empleado.Puesto.PuestoId</td>
+                        <td>@empleado.Puesto.Descripcion</td>
+
+
+                        <td class="text-center"><a class="btn btn-danger bi bi-trash" href="@Url.Action("Delete", "Empleado", new { EmpleadoId = empleado.EmpleadoId })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+
+
+

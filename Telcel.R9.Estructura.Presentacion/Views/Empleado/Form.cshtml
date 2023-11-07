@@ -1,0 +1,78 @@
+﻿@model Telcel.R9.Estructura.Negocio.Empleado
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Materia</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>@ViewBag.Accion</h2>
+            <p>Ingrese los datos de la materia</p>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Form", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col">
+                @*<label>IdMateria</label>
+            <input type="text"/>*@
+                @Html.LabelFor(model => model.EmpleadoId, new { @class = "visually-hidden" })
+                @Html.TextBoxFor(model => model.EmpleadoId, new { @class = "visually-hidden" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.Nombre)
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.Departamento)
+                @*@Html.TextBoxFor(model => model.Semestre.IdSemestre, new { @class = "form-control" })*@
+                @Html.DropDownListFor(model => model.Departamento.DepartamentoID, new SelectList(Model.Departamento.Departamentos, "DepartamentoID", "Descripcion"), "Selecciona un Departamento", htmlAttributes: new { id = "ddlSemestre", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.Puesto)
+                @*@Html.TextBoxFor(model => model.Semestre.IdSemestre, new { @class = "form-control" })*@
+                @Html.DropDownListFor(model => model.Puesto.PuestoId, new SelectList(Model.Puesto.Puestos, "PuestoId", "Descripcion"), "Selecciona un Puesto", htmlAttributes: new { id = "ddlSemestre", @class = "form-control" })
+            </div>
+        </div>
+
+       
+
+        
+        <br />
+        <div class="row">
+            <div class="col">
+                <input type="submit" class="btn btn-success" value="@ViewBag.Accion" />
+                @Html.ActionLink(" Regresar", "GetAll", "Materia", new { area = "" }, new { @class = "btn btn-danger bi bi-backspace" })
+
+            </div>
+        </div>
+
+
+    }
+</div>
+
+@section scripts
+{
+   
+}
+
+
+
