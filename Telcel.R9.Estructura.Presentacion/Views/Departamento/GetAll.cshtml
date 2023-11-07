@@ -1,0 +1,54 @@
+﻿@model Telcel.R9.Estructura.Negocio.Departamento
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Departamento</h2>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione un departamento para editarlo o + para agregar un departamento...</h5>
+            <hr />
+        </div>
+    </div>
+
+    <div style="float:right">
+        @Html.ActionLink("+", "Form", "Departamento", htmlAttributes: new { @class = "btn btn-success" })
+    </div>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td class="text-center" style=" font-weight:bold;">Editar</td>
+
+                <td class="hidden">DepartamentoID</td>
+                <td class="text-center" style=" font-weight:bold;">Nombre</td>
+
+
+                <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Telcel.R9.Estructura.Negocio.Departamento departamento in Model.Departamentos)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Departamento", new { DepartamentoID = departamento.DepartamentoID })"></a></td>
+
+                    <td class="hidden">@departamento.DepartamentoID</td>
+                    <td>@departamento.Descripcion</td>
+
+
+                    <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Departamento", new { DepartamentoID = departamento.DepartamentoID })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
